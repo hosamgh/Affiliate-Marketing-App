@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\IsValidPassword;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class RegistrationRequest extends FormRequest
 {
@@ -28,7 +28,9 @@ class RegistrationRequest extends FormRequest
             "name"=>"required",
             "email"=>"required|email|unique:users,email",
             "phone_number"=>"required|unique:user_profiles,phone_number",
-            "password"=>['required','min:8',new IsValidPassword()],
+            "password"=>['required','min:8',Password::min(8)
+            ->letters()
+            ->numbers()],
             "image"=>"required|mimes:jpg,jpeg,png,bmp,tiff"
 
         ];

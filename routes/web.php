@@ -14,8 +14,35 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::name('auth.')->group(function(){
-Route::get('/login','AuthController@loginForm')->middleware('guest');
-Route::get('/register','AuthController@registerForm')->middleware('guest');
-Route::post('/register','AuthController@register')->middleware('guest')->name('register');
+
+
+Route::name('auth.')->group(function(){  
+    /**
+     * Home Routes
+     */
+    Route::get('/', 'HomeController@index')->name('home.index');
+
+    Route::group(['middleware' => ['guest']], function() {
+        /**
+         * Register Routes
+         */
+       
+        Route::get('/register', 'AuthController@registerForm');
+        Route::post('/register', 'AuthController@register')->name('register');
+
+
+        /**
+         * Login Routes
+         */
+        Route::get('/login','AuthController@loginForm');
+        Route::post('/login', 'AuthController@login')->name('login');
+
+    });
+
+    Route::group(['middleware' => ['auth']], function() {
+        /**
+         * Logout Routes
+         */
+        Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
+    });
 });

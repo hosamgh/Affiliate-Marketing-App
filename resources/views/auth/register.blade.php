@@ -15,7 +15,7 @@
                         <div class="form-group row ">
                             <div class="col-12 ">
                                
-                                <input class="form-control form-control-lg" value="{{old('name')}}" type="text" name="name"  placeholder="Name">
+                                <input class="form-control form-control-lg" autocomplete="false"  value="{{old('name')}}" type="text" name="name"  placeholder="Name">
                             @error('name')
                             <p class='error'>{{$message}}</p>
                                 
@@ -24,7 +24,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-12 ">
-                                <input class="form-control form-control-lg" type="text" value="{{old('email')}}" name="email"  placeholder="Email">
+                                <input class="form-control form-control-lg" autocomplete="false"  type="text" value="{{old('email')}}" name="email"  placeholder="Email">
                                 @error('email')
                                 <p class='error'>{{$message}}</p>
                                     
@@ -34,7 +34,7 @@
 
                         <div class="form-group row">
                             <div class="col-12 ">
-                                <input class="form-control form-control-lg" type="text" value="{{old('phone_number')}}" name="phone_number"  placeholder="Phone number">
+                                <input class="form-control form-control-lg"  autocomplete="false"  type="text" value="{{old('phone_number')}}" name="phone_number"  placeholder="Phone number">
                                 @error('phone_number')
                                 <p class='error'>{{$message}}</p>
                                     
@@ -46,7 +46,7 @@
                         <div class="form-group row">
                             <div class="col-12 ">
                         <div class="input-group">
-                            <input type="text" class="form-control form-control-lg datepicker"  id="datepicker-autoclose" name="date_of_birth" placeholder="Birthdate">
+                            <input type="text" class="form-control form-control-lg datepicker" autocomplete="false"   id="datepicker-autoclose" name="date_of_birth" placeholder="Birthdate">
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="icon-calender"></i></span>
                             </div>
@@ -58,7 +58,7 @@
 
                         <div class="form-group row">
                             <div class="col-12 ">
-                                <input class="form-control form-control-lg" type="password" name="password"  placeholder="Password">
+                                <input class="form-control form-control-lg" type="password" autocomplete="false"  name="password"  placeholder="Password">
                                 @error('password')
                                 <p class='error'>{{$message}}</p>
                                     
@@ -69,16 +69,15 @@
 
                         <div class="form-group row">
                             <div class="col-12 ">
-                           
+                            <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+                <input name="image" id="upload"  type="file" onchange="readURL(this);" class="form-control border-0">
+                <label id="upload-label" for="upload" class="font-weight-light text-muted">Profile image</label>
+                <div class="input-group-append">
+                    <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
+                </div>
+            </div>
                                  
-                                        <div class="input-group mb-3">
-                                         
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input form-control form-control-lg" name="image" id="inputGroupFile01">
-                                                <label class="custom-file-label" for="inputGroupFile01">Upload image</label>
-                                            </div>
-                                        
-                                        </div>
+                                     
                                         @error('image')
                                         <p class='error'>{{$message}}</p>
                                             
@@ -86,7 +85,7 @@
                                    
                                 
                        </div></div>
-                
+
                         <div class="form-group text-center ">
                             <div class="col-xs-12 pb-3 ">
                                 <button class="btn btn-block btn-lg btn-info" type="submit">SIGN UP</button>
@@ -113,6 +112,16 @@
         $(".datepicker").datepicker('setDate', "{{ old('date_of_birth')}}");
 
     })
+
+    var input = document.getElementById( 'upload' );
+var infoArea = document.getElementById( 'upload-label' );
+
+input.addEventListener( 'change', showFileName );
+function showFileName( event ) {
+  var input = event.srcElement;
+  var fileName = input.files[0].name;
+  infoArea.textContent = 'File name: ' + fileName;
+}
 </script>
 
 @endsection

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegistrationRequest;
+use App\Http\Requests\LoginRequest;
 use App\ServiceInterfaces\UsersServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -23,9 +25,6 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function login()
-    {
-    }
 
     public function register(RegistrationRequest $request)
     {
@@ -40,9 +39,46 @@ class AuthController extends Controller
                 "phone_number" => $validated['phone_number'],
             ]);
 
-            return redirect('/login');
+            return redirect('/login')->with('message', 'You have successfully registered, you can login now');
+      
+
         } catch (\Exception $e) {
             return redirect()->back();
         }
+
+
     }
+
+
+    public function login(LoginRequest $request)
+    {
+        $credentials = $request->getCredentials();
+
+        if(!Auth::validate($credentials)):
+            return redirect()->to('login')
+                ->withErrors(trans('auth.failed'));
+        endif;
+
+        $user = Auth::getProvider()->retrieveByCredentials($credentials);
+
+        Auth::login($user);
+
+        return $this->authenticated($request, $user);
+    }
+
+    /**
+     * Handle response after user authenticated
+     * 
+     * @param Request $request
+     * @param Auth $user
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    protected function authenticated(Request $request, $user) 
+    {
+        return redirect()->intended();
+    }
+
+
+    
 }

@@ -2,5 +2,4 @@
 <link href='{{asset('css/style.min.css')}}' rel="stylesheet">
 <link href="{{asset('css/jquery-ui.min.css')}}" rel="stylesheet">
 <link href='{{asset('css/main.css')}}' rel="stylesheet">
-
 <script src="{{ asset('js/jquery.min.js') }}"></script>
