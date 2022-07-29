@@ -1,0 +1,8 @@
+.bg {
+    background:url(../images/login-bg.jpeg); 
+    background-size: 88%;
+}
+
+.error{
+    color:red;
+}
