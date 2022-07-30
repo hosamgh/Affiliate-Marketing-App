@@ -20,6 +20,6 @@ class Transaction extends Model
 
     //attributes
     public function getCreatedAtAttribute($value){
-        return \Carbon\Carbon::parse($value)->format('d-m-Y');
+        return \Carbon\Carbon::parse($value)->format('d-m-Y H:i:s');
     }
 }

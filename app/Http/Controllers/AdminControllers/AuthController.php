@@ -18,7 +18,7 @@ class AuthController extends Controller {
     public function login(Request $request)
     {
         if(!Auth::guard('admin')->attempt(["email"=>$request->email,"password"=>$request->password])){
-return redirect()->back()->withErrors("incorrect email or password");
+return redirect()->back()->withErrors("These credentials do not match our records.");
         }
 
         return redirect()->back();
