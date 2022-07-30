@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RegistrationRequest;
 use App\Http\Requests\LoginRequest;
+use App\ServiceInterfaces\InvitationUsersServiceInterface;
 use App\ServiceInterfaces\UsersServiceInterface;
+use App\ServiceInterfaces\VisitorsServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -12,10 +14,12 @@ use Illuminate\Support\Facades\URL;
 
 class AuthController extends Controller
 {
-    private $usersService;
-    public function __construct(UsersServiceInterface $usersService)
+    private $usersService,$visitorService,$invitationUsersService;
+    public function __construct(UsersServiceInterface $usersService,VisitorsServiceInterface $visitorService,InvitationUsersServiceInterface $invitationUsersService)
     {
         $this->usersService = $usersService;
+        $this->visitorService = $visitorService;
+        $this->invitationUsersService = $invitationUsersService;
     }
     public function loginForm()
     {
@@ -32,7 +36,9 @@ class AuthController extends Controller
     {
         try {
             $validated = $request->validated();
-            $this->usersService->create([
+            $userId = $request->user_id;
+            
+          $user =   $this->usersService->create([
                 "email" => $validated['email'],
                 "password" => $validated['password'],
                 "image" => $request->file('image'),
@@ -40,6 +46,14 @@ class AuthController extends Controller
                 "name" => $validated['name'],
                 "phone_number" => $validated['phone_number'],
             ]);
+
+            if($userId){
+                $userId = decrypt($userId);
+                $this->invitationUsersService->create([
+                    "user_id"=>$userId,
+                    "invited_user_id"=>$user->id,
+                ]);
+            }
 
             return redirect('/login')->with('message', 'You have successfully registered, you can login now');
         } catch (\Exception $e) {
@@ -70,6 +84,15 @@ class AuthController extends Controller
         if (!$request->hasValidSignature()) {
             abort(401);
         }
+
+        $userId = $request->user;
+        $userId = decrypt($userId);
+    
+        $this->visitorService->create([
+            "user_id"=>$userId,
+            "ip_address"=>$request->ip(),
+            "referral_link"=>Url::current(),
+        ]);
 
         return view('auth.register');
     }

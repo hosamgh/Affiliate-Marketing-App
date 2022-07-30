@@ -6,8 +6,9 @@ use Illuminate\Support\Collection;
 
 interface UsersServiceInterface {
 
-    public function create(array $attributes);
+    public function create(array $attributes) :Model;
     public function find($id):?Model;
+    public function all():Collection;
 
 
 

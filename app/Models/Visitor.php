@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserWallet extends Model
+class Visitor extends Model
 {
     use HasFactory;
-    protected $fillable=['balance','user_id'];
-
+    protected $fillable = ['user_id','ip_address','referral_link','visit_date'];
+    
     //relations
     public function user(){
         return $this->belongsTo(User::class);

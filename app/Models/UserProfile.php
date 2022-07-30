@@ -20,3 +20,5 @@ class UserProfile extends Model
         $this->attributes['date_of_birth'] = \Carbon\Carbon::parse($value);
     }
 }
+
+
