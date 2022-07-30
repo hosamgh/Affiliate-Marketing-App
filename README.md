@@ -11,11 +11,11 @@
 
 3- php artisan db:seed 
 
-user login : 
+## User login : 
 
 {url}/login
 
-admin login : 
+## Admin login : 
 
 {url}/adminstrator/login
 
