@@ -1,4 +1,3 @@
-<link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">
 <link href='{{asset('css/style.css')}}' rel="stylesheet">
 
 <link href="{{asset('css/jquery-ui.min.css')}}" rel="stylesheet">

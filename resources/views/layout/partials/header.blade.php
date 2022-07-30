@@ -134,9 +134,9 @@
                 @if(!Auth::guard('admin')->check())
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="copy" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Copy Invitation Link<i class="mdi mdi-wallet display-4 text-orange"></i>
+                     <button class="btn btn-lg btn-light  "><i class="fa fa-home"></i> Copy Invitation Link </button>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right  animated bounceInDown" aria-labelledby="navbarDropdown2">
+                    <div class="dropdown-menu dropdown-menu-right " aria-labelledby="navbarDropdown2">
                      
                     </div>
                 </li>
@@ -154,5 +154,7 @@ $(function(){
         var ele =document.getElementById('referral-link')
         copyToClipboard(ele)
     })
+
+
 })
 </script>
