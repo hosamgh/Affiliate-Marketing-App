@@ -19,8 +19,8 @@
             <div class="col-12">
            
         
-                <form  method="post" action="{{ route('auth.login') }}" class="form-horizontal mt-3" id="loginform" >
-                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                <form   method="post" action="{{ route('auth.login') }}" class="form-horizontal mt-3" id="loginform" >
+                @csrf
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">

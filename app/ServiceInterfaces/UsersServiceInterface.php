@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 interface UsersServiceInterface {
 
     public function create(array $attributes);
+    public function find($id):?Model;
 
 
 

@@ -7,6 +7,8 @@ use App\Http\Requests\LoginRequest;
 use App\ServiceInterfaces\UsersServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 
 class AuthController extends Controller
 {
@@ -40,13 +42,10 @@ class AuthController extends Controller
             ]);
 
             return redirect('/login')->with('message', 'You have successfully registered, you can login now');
-      
-
         } catch (\Exception $e) {
+            dd($e->getMessage());
             return redirect()->back();
         }
-
-
     }
 
 
@@ -54,7 +53,7 @@ class AuthController extends Controller
     {
         $credentials = $request->getCredentials();
 
-        if(!Auth::validate($credentials)):
+        if (!Auth::validate($credentials)) :
             return redirect()->to('login')
                 ->withErrors(trans('auth.failed'));
         endif;
@@ -66,6 +65,15 @@ class AuthController extends Controller
         return $this->authenticated($request, $user);
     }
 
+    public function invitation(Request $request)
+    {
+        if (!$request->hasValidSignature()) {
+            abort(401);
+        }
+
+        return view('auth.register');
+    }
+
     /**
      * Handle response after user authenticated
      * 
@@ -74,11 +82,18 @@ class AuthController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    protected function authenticated(Request $request, $user) 
+    protected function authenticated(Request $request, $user)
     {
         return redirect()->intended();
     }
 
 
-    
+    public function logout()
+    {
+        Session::flush();
+
+        Auth::logout();
+
+        return redirect('login');
+    }
 }

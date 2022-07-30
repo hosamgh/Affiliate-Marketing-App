@@ -28,7 +28,7 @@ class RegistrationRequest extends FormRequest
             "name"=>"required",
             "email"=>"required|email|unique:users,email",
             "phone_number"=>"required|unique:user_profiles,phone_number",
-            "password"=>['required','min:8',Password::min(8)
+            "password"=>['required',Password::min(8)
             ->letters()
             ->numbers()],
             "image"=>"required|mimes:jpg,jpeg,png,bmp,tiff"
@@ -50,7 +50,6 @@ class RegistrationRequest extends FormRequest
             "phone_number.unique"=>"phone number already in use",
             "image.mimes"=>"uploaded file is not a valid image",
             "password.min"=>"password must be minimum 8 characters",
-            "password.regex"=>"password must contains characters and digit",
 
 
 

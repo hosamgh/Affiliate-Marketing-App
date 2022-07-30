@@ -20,7 +20,7 @@ class CreateUserProfilesTable extends Migration
             $table->string('phone_number')->unique();
             $table->string('date_of_birth')->nullable();
             $table->string('image');
-            $table->string('referral_link');
+            $table->text('referral_link');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
