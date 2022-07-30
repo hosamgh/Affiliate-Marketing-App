@@ -50,4 +50,17 @@ Route::name('auth.')->group(function () {
 
 Route::middleware('auth')->group(function(){
     Route::get('/', 'HomeController@index')->name('home.index');
+    Route::get('/chart','HomeController@chartData')->name('chart');
+
+});
+
+Route::name('category.')->prefix('category')->middleware('auth')->group(function(){
+    Route::get('/popup','CategoryController@categoryPopup')->name('popup');
+    Route::post('/store','CategoryController@store')->name('store');
+});
+
+Route::name('transaction.')->prefix('transaction')->middleware('auth')->group(function(){
+    Route::get('/popup','TransactionsController@transactionPopup')->name('popup');
+    Route::post('/store','TransactionsController@store')->name('store');
+    Route::get('/validate-amount','TransactionsController@validateAmount')->name('validate-amount');
 });

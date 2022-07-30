@@ -1,4 +1,8 @@
 <header class="topbar">
+ @if(!Auth::guard('admin')->check())
+
+    <input type="text" style="display:none;" value="{{ optional(auth()->user()->profile)->referral_link}}" id="referral-link"/>
+@endif
     <nav class="navbar top-navbar navbar-expand-md navbar-dark">
         <div class="navbar-header">
             <!-- This is for the sidebar toggle which is visible on mobile only -->
@@ -6,9 +10,15 @@
             <!-- ============================================================== -->
             <!-- Logo -->
             <!-- ============================================================== -->
-            <a class="navbar-brand" href="{{route('auth.logout')}}">
+           @if(Auth::guard('admin')->check())
+            <a class="navbar-brand" href="{{route('admin.auth.logout')}}">
                Logout
             </a>
+            @else 
+            <a class="navbar-brand" href="{{route('auth.logout')}}">
+                Logout
+             </a>
+             @endif
             <!-- ============================================================== -->
             <!-- End Logo -->
             <!-- ============================================================== -->
@@ -121,18 +131,28 @@
                 <!-- ============================================================== -->
                 <!-- create new -->
                 <!-- ============================================================== -->
+                @if(!Auth::guard('admin')->check())
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="flag-icon flag-icon-us"></i>
+                    <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="copy" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Copy Invitation Link<i class="mdi mdi-wallet display-4 text-orange"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right  animated bounceInDown" aria-labelledby="navbarDropdown2">
-                        <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-us"></i> English</a>
                      
                     </div>
                 </li>
+                @endif
                
            
             </ul>
         </div>
     </nav>
 </header>
+
+<script>
+$(function(){
+    $("#copy").click(function(){
+        var ele =document.getElementById('referral-link')
+        copyToClipboard(ele)
+    })
+})
+</script>

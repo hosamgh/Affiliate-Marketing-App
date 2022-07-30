@@ -25,6 +25,9 @@ class User extends Authenticatable
 
         'password',
     ];
+    protected $append=[
+        "referred_users_number","total_of_income","total_of_expenses",'balance'
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -43,9 +46,44 @@ class User extends Authenticatable
         return $this->hasOne(UserProfile::class);
     }
 
+    public function wallet(){
+        return $this->hasOne(UserWallet::class);
+    }
+    public function transactions(){
+        return $this->hasMany(Transaction::class);
+    }
+
     //attributes
     public function setPasswordAttribute($value){
         $this->attributes['password'] = Hash::make($value);
+    }
+
+    public function getCreatedAtAttribute($value){
+        return \Carbon\Carbon::parse($value)->format('d-m-Y');
+    }
+
+
+    public function getReferredUsersNumberAttribute(){
+        $referredUsersNumber = Invitation::where('user_id',$this->id)->count();
+        return $referredUsersNumber;
+    }
+
+    public function getTotalOfIncomeAttribute(){
+        $totalOfIncome = $this->transactions()->whereHas('category',function($query){
+            return $query->where('type','income');
+        })->sum('amount');
+        return $totalOfIncome;
+    }
+
+    public function getTotalOfExpensesAttribute(){
+        $totalOfExpenses = $this->transactions()->whereHas('category',function($query){
+            return $query->where('type','expenses');
+        })->sum('amount');
+        return $totalOfExpenses;
+    }
+
+    public function getBalanceAttribute(){
+        return $this->wallet->balance;
     }
   
 }

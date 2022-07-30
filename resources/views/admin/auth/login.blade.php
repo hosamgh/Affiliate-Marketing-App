@@ -5,7 +5,7 @@
     <div id="loginform">
         <div class="logo">
             <span class="db"><img src="{{asset('images/logo.png')}}" alt="logo" /></span>
-            <h5 class="font-medium mb-3">Sign In to user</h5>
+            <h5 class="font-medium mb-3">Sign In to admin</h5>
             @include('layout.partials.messages')
 
             @if(session()->has('message'))
@@ -19,7 +19,7 @@
             <div class="col-12">
            
         
-                <form   method="post" action="{{ route('auth.login') }}" class="form-horizontal mt-3" id="loginform" >
+                <form   method="post" action="{{ route('admin.auth.login') }}" class="form-horizontal mt-3" id="loginform" >
                 @csrf
 
                     <div class="input-group mb-3">
@@ -57,12 +57,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group mb-0 mt-2">
-                        <div class="col-sm-12 text-center">
-                            Don't have an account? <a href="{{url('/register')}}"
-                                class="text-info ml-1"><b>Sign Up</b></a>
-                        </div>
-                    </div>
+                   
                 </form>
             </div>
         </div>

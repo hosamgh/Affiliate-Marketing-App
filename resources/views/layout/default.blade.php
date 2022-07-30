@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html dir="ltr" lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -22,6 +22,25 @@
             @yield('content')
         </div>
     </div>
+
+    <div class="modal" id="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+         
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{asset('js/jquery-ui.min.js')}}"></script>
     <script src="{{asset('js/app.min.js')}}"></script>
@@ -49,11 +68,13 @@
 <!--c3 charts -->
 <script src="{{asset('assets/extra-libs/c3/d3.min.js')}}"></script>
 <script src="{{asset('assets/extra-libs/c3/c3.min.js')}}"></script>
+
 <!--chartjs -->
 <script src="{{asset('assets/libs/chart.js/dist/Chart.min.js')}}"></script>
 <script src="{{asset('js/dashboard1.js')}}"></script>
 <script src="{{asset('assets/extra-libs/DataTables/datatables.min.js')}}"></script>
-{{-- <script src="../../dist/js/pages/dashboards/dashboard3.js"></script> --}}
+<script src="{{asset('js/dashboard3.js')}}"></script>
+<script src="{{asset('js/validator.js')}}"></script>
 </body>
 
 </html>

@@ -12,7 +12,9 @@
                     <div class="col-12">
                         <form autocomplete="off" class="form-horizontal mt-3" method="POST"
                             action="{{ route('auth.register') }}" enctype="multipart/form-data">
+                            
                             @csrf
+                            <input type="hidden" name="user_id" value="{{request()->get('user')}}">
                             <div class="form-group row ">
                                 <div class="col-12 ">
 

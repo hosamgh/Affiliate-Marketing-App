@@ -5,6 +5,7 @@ namespace App\Services;
 use App\RepositoryInterfaces\UsersRepositoryInterface;
 use App\ServiceInterfaces\UsersServiceInterface;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 
@@ -15,7 +16,7 @@ class UsersService implements UsersServiceInterface
     {
         $this->usersRepository = $usersRepository;
     }
-    public function create(array $attributes)
+    public function create(array $attributes) : Model
     {
         $user =  $this->usersRepository->create($attributes);
        
@@ -29,9 +30,16 @@ class UsersService implements UsersServiceInterface
             "referral_link" => URL::signedRoute('auth.invitation', ['user' => encrypt($user->id)])
 
         ]);
+        $user->wallet()->create();
+
+        return $user;
     }
     public function find($id): ?Model
     {
         return $this->usersRepository->find($id);
+    }
+
+    public function all():Collection{
+        return $this->usersRepository->all();
     }
 }
