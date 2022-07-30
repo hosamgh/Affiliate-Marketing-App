@@ -134,7 +134,7 @@
                 @if(!Auth::guard('admin')->check())
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="copy" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     <button class="btn btn-lg btn-light  "><i class="fa fa-home"></i> Copy Invitation Link </button>
+                     <button class="btn btn-lg btn-light  "><i class="fa fa-copy"></i> Copy Invitation Link </button>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right " aria-labelledby="navbarDropdown2">
                      
